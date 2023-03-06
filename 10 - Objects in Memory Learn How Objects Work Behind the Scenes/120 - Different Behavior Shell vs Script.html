@@ -1,0 +1,4 @@
+<p>The environment in which you run the code affects how string interning works.</p><p>The behavior can be different when you are using the interactive console or when you are running a Python script, depending on how the code is optimized behind the scenes when the program runs.</p><p>This is because different environments have different optimization levels.</p><p>The process can also vary between different versions of Python.</p><p><strong>Example:</strong></p><p>If you run this code in the Python Shell (console), you will see <code>False</code>:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a = "Hello, World!"
+&gt;&gt;&gt; b = "Hello, World!"
+&gt;&gt;&gt; a is b
+False</pre><p>But if you run it from a Python script, you will see <code>True</code> as the result for <code>a is b</code>.</p>

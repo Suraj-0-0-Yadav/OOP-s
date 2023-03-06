@@ -1,0 +1,16 @@
+<p>To confirm that objects are passed by reference in Python, we can see what happens in this example using the id() function:</p><pre class="prettyprint linenums"># List object
+&gt;&gt;&gt; a = [5, 6, 2]
+
+# Function that takes a list object as argument
+&gt;&gt;&gt; def f(x):
+	print(id(x))
+	return x
+
+# Get the ids
+&gt;&gt;&gt; id(a)
+63319880
+&gt;&gt;&gt; f(a)
+63319880
+
+# Value returned
+[5, 6, 2]</pre><p>Notice how the id of the formal parameter is the same id of the object that was passed as the argument, which confirms that we are working with the original object in memory that was passed as argument. A reference to that object was passed as argument, not a copy of the object.</p><p><br></p>

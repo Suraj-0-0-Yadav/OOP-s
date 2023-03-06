@@ -1,0 +1,39 @@
+<p>Now let's see the two different methods that you can use to create copies of the objects that you are working with (e.g. lists, tuples, dictionaries, custom objects, and others).</p><h4>1️⃣ <strong>Shallow Copy</strong></h4><p>When you make a <strong>shallow copy</strong> of an object, you are making a new object in memory, a new reference, but the content of the object will still point to the same objects. </p><p><strong>Let me illustrate this:</strong></p><p>If we have a tuple that contains a list (which is a mutable object) the tuple and we create a clone of the tuple, like this:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a = ([0, 6, 2], "Hello", 56)
+&gt;&gt;&gt; b = a[:]</pre><p>We could think that this is the result (below). Two independent objects with a different list object in each one them. But...</p><figure><img height="305" src="https://img-c.udemycdn.com/redactor/raw/2019-11-21_15-09-49-4cd3ac78751116ad857a0fc81acd6301.JPG" width="455"></figure><p>This is not the case. The tuple only contains a reference to the list object, not the list object itself.</p><p>This would be a more accurate diagram of the result (only taking the list as an example. The other objects are stored as references as well):</p><figure><img height="366" src="https://img-c.udemycdn.com/redactor/raw/2019-11-21_15-11-09-bea5095a1fed2db4a19fd2f9d24c6ec8.JPG" width="574"></figure><p>So if you modify the list contained in the tuple referenced by <code>b</code>, like this:</p><pre class="prettyprint linenums">&gt;&gt;&gt; b[0][0] = -1</pre><p>You are actually modifying the list in memory, so both tuples are affected since they only contain a <strong>reference </strong>to the list:</p><figure><img height="367" src="https://img-c.udemycdn.com/redactor/raw/2019-11-21_15-13-31-fecfcc767f88d8c3fa41ed0325a6260b.JPG" width="585"></figure><p><br></p><p>This is why the list was modified "in both tuples", even if that wasn't our initial intention:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a
+([-1, 6, 2], 'Hello', 56)
+&gt;&gt;&gt; b
+([-1, 6, 2], 'Hello', 56)</pre><p>⚠️<strong> This is something that you need to be really careful of.</strong></p><p>This is another example with the <code>.copy()</code> method that you can call on dictionaries:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a = {"Nora": ["055-452-322", "Washington Ave."], "Gino": ["006-545", "5th Avenue"]}
+&gt;&gt;&gt; b = a.copy()
+
+&gt;&gt;&gt; a
+{'Nora': ['055-452-322', 'Washington Ave.'], 'Gino': ['006-545', '5th Avenue']}
+&gt;&gt;&gt; b
+{'Nora': ['055-452-322', 'Washington Ave.'], 'Gino': ['006-545', '5th Avenue']}
+
+# If you modify an element of the list
+&gt;&gt;&gt; b["Nora"][0] = "56"
+
+# They are both affected. The original and the copy.
+&gt;&gt;&gt; b
+{'Nora': ['56', 'Washington Ave.'], 'Gino': ['006-545', '5th Avenue']}
+&gt;&gt;&gt; a
+{'Nora': ['56', 'Washington Ave.'], 'Gino': ['006-545', '5th Avenue']}</pre><blockquote><p>Shallow copies of dictionaries can be made using <a href="https://docs.python.org/3.8/library/stdtypes.html#dict.copy" rel="noopener noreferrer" target="_blank" title="dict.copy"><code>dict.copy()</code></a>, and of lists by assigning a slice of the entire list, for example, <code>copied_list = original_list[:]</code>. - <a href="https://docs.python.org/3/library/copy.html#module-copy" rel="noopener noreferrer" target="_blank">source</a></p></blockquote><p><strong>💡 Tips:&nbsp;</strong>You can also use the <code><strong>copy</strong></code><strong> module</strong> to create a shallow copy. </p><p>To do this, you would have to add this line: <code>import copy</code> at the very top of your script, like this:</p><pre class="prettyprint linenums">&gt;&gt;&gt; import copy
+
+&gt;&gt;&gt; a = ([5, 2, 6, 2], "Welcome", 67)
+&gt;&gt;&gt; b = copy.copy(a)
+&gt;&gt;&gt; b[0][0] = -1
+
+# They are both modified
+&gt;&gt;&gt; a
+([-1, 2, 6, 2], 'Welcome', 67)
+&gt;&gt;&gt; b
+([-1, 2, 6, 2], 'Welcome', 67)</pre><p><br></p><h4><strong>2️⃣ Deep Copy</strong></h4><p>With a deep copy, in addition to creating a copy of the "container" object, you also create a copy of the elements contained in the object. </p><figure><img height="340" src="https://img-c.udemycdn.com/redactor/raw/2019-11-21_15-24-32-e910bca75c862892480a0fb641e824b7.JPG" width="559"></figure><p>So if you modify the list, <strong>you will not affect other names or objects that reference them</strong>:</p><figure><img height="357" src="https://img-c.udemycdn.com/redactor/raw/2019-11-21_15-25-16-ca3d2f07cecd24d57bf6ac6cf0e71f76.JPG" width="529"></figure><p>To perform a deep copy, you need to use the <code>copy</code> module, like this:</p><pre class="prettyprint linenums">&gt;&gt;&gt; import copy
+&gt;&gt;&gt; a = ([5, 2, 6, 2], "Welcome")
+&gt;&gt;&gt; b = copy.deepcopy(a)
+&gt;&gt;&gt; b[0][0] = -1
+
+# Changing the list in b did not affect the list in a
+&gt;&gt;&gt; a
+([5, 2, 6, 2], 'Welcome')
+&gt;&gt;&gt; b
+([-1, 2, 6, 2], 'Welcome')</pre><p>For more information on Shallow and Deep copies, please refer to this article in the Python Documentation:</p><ul><li><p><a href="https://docs.python.org/3.8/library/copy.html#module-copy" rel="noopener noreferrer" target="_blank">copy — Shallow and deep copy operations</a></p></li></ul><p>⚠️<strong> Note:</strong> Shallow and Deep copies have their corresponding advantages and disadvantages. These are listed in the article.</p>

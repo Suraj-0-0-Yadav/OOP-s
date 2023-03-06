@@ -1,0 +1,28 @@
+<p>In the previous video, you learned that, in the case of lists and tuples, the == operator compares the values, not if they are the same object. But take a look at this example:</p><pre class="prettyprint linenums">&gt;&gt;&gt; class Dog:
+	
+	def __init__(self, age):
+		self.age = age
+
+		
+&gt;&gt;&gt; a = Dog(5)
+&gt;&gt;&gt; b = Dog(5)
+&gt;&gt;&gt; a == b
+False</pre><p>They comparison operator doesn't return True, even if their instance attributes have the same value. Why is this?</p><p>Objects created from user-defined classes have to meet two conditions for the expression <code>obj1 == obj2</code> to evaluate to <code>True</code>.</p><ul><li><p>They have to refer to the same object (<code>x is y</code> has to evaluate to <code>True</code>) </p></li><li><p>The expression <code>hash(x) == hash(y)</code> has to evaluate to <code>True</code>.</p></li></ul><p>The <code>hash()</code> function maps the object to a unique integer. For more information on the hash() built-in function, please <a href="https://docs.python.org/3/library/functions.html#hash" rel="noopener noreferrer" target="_blank">refer to this article</a>.</p><p><strong>According to the Python Documentation:</strong></p><blockquote><p>".... <strong>all objects compare unequal (except with themselves)</strong> ... <code><strong>x == y</strong></code><strong> implies both that </strong><code><strong>x is y</strong></code><strong> and </strong><code><strong>hash(x) == hash(y)</strong></code><strong>."</strong>- <a href="https://docs.python.org/3/reference/datamodel.html#object.__hash__" rel="noopener noreferrer" target="_blank">source</a></p></blockquote><p>To find more information on this specific quote of the documentation, please <a href="https://docs.python.org/3/reference/datamodel.html#object.__hash__" rel="noopener noreferrer" target="_blank">refer to the article</a>.</p><p>This is why comparing an object from a user-defined class with itself using the == operator returns True:</p><pre class="prettyprint linenums">&gt;&gt;&gt; class Dog:
+	
+	def __init__(self, age):
+		self.age = age
+
+		
+&gt;&gt;&gt; a = Dog(5)
+&gt;&gt;&gt; b = Dog(5)
+&gt;&gt;&gt; a == b
+False
+&gt;&gt;&gt; a == a
+True
+&gt;&gt;&gt; b == b
+True
+&gt;&gt;&gt; b == a
+False</pre><p>As you can see, the values returned by hash() are not equal for the two objects:</p><pre class="prettyprint linenums">&gt;&gt;&gt; hash(a)
+-2143773140
+&gt;&gt;&gt; hash(b)
+3710489</pre><p>So when the hash values are different, this expression <code>hash(a) == hash(b)</code> will be False and the expression <code>a is b and hash(a) == hash(b)</code> returns False, so <code>a == b</code> returns False.</p><p><br></p>

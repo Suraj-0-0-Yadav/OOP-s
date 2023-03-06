@@ -1,0 +1,50 @@
+<p><strong>Now you will learn why you should avoid using mutable data types such as lists as default arguments:</strong></p><p>Default arguments are initialized when the methods are initially processed, so there is only one copy of each default argument. They are not created when you call the method, they are created when the program starts to run.</p><h4>1️⃣ <strong>Example</strong></h4><p>If you use a list as a default argument, the same list (reference) will be reused as the default argument for every method call.</p><p>Below, you can see how we use an empty list as the default argument for the <code>clients</code> parameter in <code>__init__()</code>. </p><p>You would expect this to work normally, creating an empty list (a new object) for the default argument every time that you create an instance. <strong>But this is not what happens...</strong></p><p>When we start adding elements to the list, you can see that the two instances were modified (please see the example below).</p><pre class="prettyprint linenums">&gt;&gt;&gt; class WaitingList:
+	
+	def __init__(self, clients=[]): # The default argument is an empty list
+		self.clients = clients
+		
+	def add_client(self, client):
+		self.clients.append(client)
+
+# Create the instances		
+&gt;&gt;&gt; waiting_list1 = WaitingList()
+&gt;&gt;&gt; waiting_list2 = WaitingList()
+
+# Add a client to the first waiting list
+&gt;&gt;&gt; waiting_list1.add_client("Jake")
+
+# Both of them were modified!
+&gt;&gt;&gt; waiting_list1.clients
+['Jake']
+&gt;&gt;&gt; waiting_list2.clients
+['Jake']</pre><p>What truly happens behind the scenes is that when this line is executed:&nbsp;<code>self.clients.append(client)</code>, the new client is added to the same list! Not to a separate list that corresponds to each instance. </p><p>You can check that <code>self.clients</code> references the same list in the two instances with the <code>id()</code> function. Notice how the <code>ids</code> are equal. </p><pre class="prettyprint linenums">&gt;&gt;&gt; class WaitingList:
+	
+	def __init__(self, clients=[]):
+		self.clients = clients
+		print("List id:", id(self.clients))
+		
+	def add_client(self, client):
+		self.clients.append(client)
+
+		
+&gt;&gt;&gt; waiting_list1 = WaitingList()
+List id: 48967144
+&gt;&gt;&gt; waiting_list2 = WaitingList()
+List id: 48967144</pre><h4>2️⃣ <strong>Solution</strong></h4><p>The solution to this problem is to avoid using the list directly as a default argument, and use this instead:</p><pre class="prettyprint linenums">class WaitingList:
+	
+	def __init__(self, clients=None):
+                if clients == None:
+                        self.clients = []
+                else:
+                        self.clients = clients
+		
+	def add_client(self, client):
+		self.clients.append(client)</pre><p><code>None</code> is used as the default argument so you can omit the argument when you create the instance. If the value of <code>clients</code> is <code>None</code>, the attribute is initialized as an empty list. Otherwise, the value passed as argument is assigned.</p><p>And this will generate the behavior that you expect:</p><pre class="prettyprint linenums">&gt;&gt;&gt; waiting_list1 = WaitingList()
+&gt;&gt;&gt; waiting_list2 = WaitingList()
+
+&gt;&gt;&gt; waiting_list1.add_client("Jake")
+
+&gt;&gt;&gt; waiting_list1.clients
+['Jake']
+&gt;&gt;&gt; waiting_list2.clients
+[]</pre><p>Now the instances reference two separate lists and modifying one doesn't modify the other.</p>

@@ -1,0 +1,7 @@
+<p>A very important distinction for immutable objects is that they can contain mutable objects, and these mutable objects can be modified even if the container cannot be modified.</p><p>Here is an example that illustrates this. We have this initial list:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a = ([1, 2, 3], "abc", 56)</pre><p>If we try to change an element of the tuple, we get an error because tuples are immutable objects:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a[0] = 12
+Traceback (most recent call last):
+  File "&lt;pyshell#1&gt;", line 1, in &lt;module&gt;
+    a[0] = 12
+TypeError: 'tuple' object does not support item assignment</pre><p>⚠️ But... if we try to modify an element of the tuple that <strong>is</strong> mutable, we won't get any errors.</p><p>Here we change the element at index 1 of the element at index 0 of the tuple. We are changing the number 2 of this list <code>[1, 2, 3]</code> for the number 4 (<code>[1, 4, 3]</code>).</p><pre class="prettyprint linenums">&gt;&gt;&gt; a[0][1] = 4 
+&gt;&gt;&gt; a
+([1, 4, 3], 'abc', 56)</pre><p><strong>We modified it! No errors were thrown.</strong> So choosing an immutable "container" object (e.g a tuple) doesn't "protect" the elements themselves from change if they are mutable (e.g lists).</p><p><br></p>

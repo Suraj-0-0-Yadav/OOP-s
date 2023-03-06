@@ -1,0 +1,8 @@
+<p>You have to be very careful with built-in methods because some of them mutate the original object.</p><p>For example:</p><pre class="prettyprint linenums">&gt;&gt;&gt; a = [6, 2, 7, 1]
+&gt;&gt;&gt; a.sort()
+&gt;&gt;&gt; a
+[1, 2, 6, 7]</pre><p>Here you can see (above) that the <code>.sort()</code> method mutated the original list.</p><p>To achieve this same functionality without mutating the original object, you should use the <code>sorted()</code> function.</p><pre class="prettyprint linenums">&gt;&gt;&gt; a = [6, 2, 7, 1]
+&gt;&gt;&gt; sorted(a)
+[1, 2, 6, 7]
+&gt;&gt;&gt; a
+[6, 2, 7, 1]</pre><p>As you can see, this function returns a sorted "version" of the list (a copy) without modifying the original list.</p><p>You can check if a method mutates the object in the official Python documentation. 👍</p><p><br></p>
