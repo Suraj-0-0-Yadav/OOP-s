@@ -1,0 +1,13 @@
+<p>I'm sure that you must be asking yourself this question right now:&nbsp;<strong>why do we skip </strong><code><strong>self</strong></code><strong>?</strong></p><p>Let's see why...</p><p>We do this because the value of <code>self</code> is assigned automatically by the program behind the scenes.</p><p>For example:</p><pre class="prettyprint linenums">&gt;&gt;&gt; class House:
+	
+	def __init__(self, price):
+		self.price = price
+
+&gt;&gt;&gt; my_house = House(14000)</pre><p>We didn't pass a value for <code>self</code> explicitly, but the code worked correctly, so let's check if <code>self</code> has a value. </p><p>If we add a print statement to print the value of <code>self</code> in <code>__init__()</code>:</p><pre class="prettyprint linenums">&gt;&gt;&gt; class House:
+	
+	def __init__(self, price):
+		print(self) # New print statement
+		self.price = price
+
+&gt;&gt;&gt; my_house = House(14000)
+&lt;__main__.House object at 0x032AE0B8&gt; # Output</pre><p>We can confirm that <code>self</code> has a value even though we didn't assign it explicit when we created the instance. </p><p>This value was assigned automatically to reference the new object.</p><p><strong>Awesome, right?&nbsp;👍</strong></p>

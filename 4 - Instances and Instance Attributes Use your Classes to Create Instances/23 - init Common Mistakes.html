@@ -1,0 +1,9 @@
+<h4><strong>Common Mistakes with </strong><code><strong>__init__()</strong></code><strong> </strong></h4><p><br></p><ul><li><h4>Omitting the <code>def</code> keyword:</h4></li></ul><pre class="prettyprint linenums">__init__(self, width, height): # The def keyword is missing!
+	self.width = width
+	self.height = height</pre><h4></h4><ul><li><h4>Using only <strong>one </strong>underscore (You must use <strong>two</strong>):</h4></li></ul><pre class="prettyprint linenums">def _init_(self, width, height): # There is only ONE underscore instead of two!
+	self.width = width
+	self.height = height</pre><h4></h4><ul><li><h4>Omitting <code>self</code> as the first parameter:</h4></li></ul><pre class="prettyprint linenums">def __init__(width, height): # Self is missing. It must be the FIRST parameter!
+	self.width = width
+	self.height = height</pre><h4></h4><ul><li><h4>Not using <code>self.&lt;attribute&gt;</code> to assign instance attributes:</h4></li></ul><pre class="prettyprint linenums">def __init__(self, width, height): 
+	width = width        # You should use self.width to assign them!
+	height = height</pre>

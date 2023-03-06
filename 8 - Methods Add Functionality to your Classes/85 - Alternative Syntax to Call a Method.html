@@ -1,0 +1,8 @@
+<p>You can also call a method using this syntax:</p><p><code>&lt;ClassName&gt;.&lt;method_name&gt;(&lt;instance&gt;, &lt;args&gt;)</code></p><p>This is the order of the elements:</p><ul><li><p>Name of the class</p></li><li><p>Dot</p></li><li><p>Name of the method</p></li><li><p>Within parentheses,&nbsp; the instance as the first parameters and the arguments.</p></li></ul><p>For example:</p><pre class="prettyprint linenums">class Bus:
+
+    def __init__(self, color):
+        self._color = color
+	
+    def welcome_student(self, student_name):
+        print(f"Hello {student_name}, how are you today?")</pre><p>You would create an instance and call the method:</p><pre class="prettyprint linenums">bus = Bus("blue")
+Bus.welcome_student(bus, "Johnathan")</pre><p>To get this output:</p><p><code>Hello Johnathan, how are you today?</code></p><p><br></p>

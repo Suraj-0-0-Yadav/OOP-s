@@ -1,0 +1,30 @@
+<p>In Object-Oriented Programming, <strong>Method Chaining</strong> is a very common syntax that lets us call several methods one after the other on the same instance.</p><p>This is an example where we add three toppings to a Pizza instance and then we display its toppings:</p><pre class="prettyprint linenums">pizza.add_topping("mushrooms") \
+    .add_topping("olives") \
+    .add_topping("chicken") \
+    .display_toppings()</pre><p>We can do this by returning <code>self</code> from a method. </p><p>Let's see how. </p><p><br></p><h4><strong>🔹 Example</strong></h4><p>In this example we have a <code>Pizza</code> class. </p><pre class="prettyprint linenums">class Pizza:
+
+    def __init__(self):
+        self.toppings = []
+
+    def add_topping(self, topping):
+        self.toppings.append(topping.lower())
+        return self
+
+    def display_toppings(self):
+        print("This Pizza has:")
+        for topping in self.toppings:
+            print(topping.capitalize()) </pre><p>Please take a closer look at this method:</p><pre class="prettyprint linenums">def add_topping(self, topping):
+    self.toppings.append(topping.lower())
+    return self</pre><p>The last line is what allows method chaining. It returns <code>self</code> (the instance that called the method), so you can use it to call another method in the same line. </p><figure><img height="116" src="" width="651"></figure><p>---------</p><p>Right here below we have an example.</p><p>We create an instance of <code>Pizza</code>:</p><pre class="prettyprint linenums">pizza = Pizza()</pre><p>Since we are returning <code>self</code> from the <code>add_topping</code> method, we can call other methods in the same line:</p><pre class="prettyprint linenums">pizza.add_topping("mushrooms").add_topping("olives").add_topping("chicken").display_toppings()</pre><p>This line adds three toppings to the <code>pizza</code> instance and it displays them by calling <code>display_toppings()</code> method. </p><p><strong>💡 Tip:&nbsp;</strong>To make the code more readable, you can write the method calls in several lines using <code>\</code> to indicate that the next line is a continuation of the current line. </p><pre class="prettyprint linenums">pizza.add_topping("mushrooms") \
+    .add_topping("olives") \
+    .add_topping("chicken") \
+    .display_toppings()</pre><p>This is the output when we run the program:</p><pre class="prettyprint linenums">This Pizza has:
+Mushrooms
+Olives
+Chicken</pre><p>As you can see, the toppings were added to the <code>pizza</code> instance. </p><p><br></p><h4><strong>🔸 Behind the Scenes</strong></h4><p>Let's see what is actually happening behind the scenes. Each method call is replaced by the instance after the call has been completed.</p><p><strong>Step 1: </strong></p><p>First, <code>pizza.add_topping("mushrooms")</code> runs to add this topping to the pizza instance. </p><p>This line of code:</p><pre class="prettyprint linenums">pizza.add_topping("mushrooms").add_topping("olives").add_topping("chicken").display_toppings()</pre><p>Becomes (behind the scenes):</p><pre class="prettyprint linenums">pizza.add_topping("olives").add_topping("chicken").display_toppings()</pre><p>Because <code>pizza.add_topping("mushrooms")</code> becomes <code>pizza</code> when the first method call is completed because <code>self</code> (pizza) is the value returned. </p><p><strong>Step 2:</strong></p><p>Now <code>pizza.add_topping("olives")</code> runs to add this topping to the pizza instance. </p><p>This line of code:</p><pre class="prettyprint linenums">pizza.add_topping("olives").add_topping("chicken").display_toppings()</pre><p>Becomes (behind the scenes):</p><pre class="prettyprint linenums">pizza.add_topping("chicken").display_toppings()</pre><p><strong>Step 3:</strong></p><p>Finally, <code>pizza.add_topping("chicken")</code> runs to add this topping to the pizza instance. </p><p>This line of code:</p><pre class="prettyprint linenums">pizza.add_topping("chicken").display_toppings()</pre><p>Becomes (behind the scenes):</p><pre class="prettyprint linenums">pizza.display_toppings()</pre><p><strong>Step 4:</strong></p><p>Finally, this method call runs <code>pizza.display_toppings()</code> and the toppings are displayed.</p><p><br></p><h4><strong>🔹 Use Cases and Advantages</strong></h4><p>Method chaining can be used to improve the readability of your code when it makes the code more concise and when it avoids creating variables to store intermediate results.</p><p>In our previous example, without method chaining, we would have had to write the name of the instance for each function call:</p><pre class="prettyprint linenums">pizza.add_topping("mushrooms") 
+pizza.add_topping("olives") 
+pizza.add_topping("chicken") 
+pizza.display_toppings()</pre><p>As you can see, in this case, method chaining made the code more concise and readable. </p><pre class="prettyprint linenums">pizza.add_topping("mushrooms") \
+    .add_topping("olives") \
+    .add_topping("chicken") \
+    .display_toppings()</pre><p><strong>💡 Tip:</strong> You will also find method chaining in programming languages like JavaScript or Java. </p>

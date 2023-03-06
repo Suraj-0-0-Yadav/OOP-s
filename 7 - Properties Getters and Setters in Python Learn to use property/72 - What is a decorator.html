@@ -1,0 +1,6 @@
+<p>A <strong>decorator </strong>is a function that takes a function as argument to extend its functionality without actually modifying it. </p><p>This is the typical syntax of a decorator function:</p><pre class="prettyprint linenums">def decorator_function(arg_function):
+	def wrapper_function():
+		# Code to extend the functionality 
+		arg_function()
+		# Code to extend the functionality
+	return wrapper_function</pre><p>You can see a Python equivalent that illustrates why @property is implemented as a decorator in this article:</p><ul><li><p><a href="https://docs.python.org/3/howto/descriptor.html#properties" rel="noopener noreferrer" target="_blank">Properties - Python Documentation</a></p></li></ul><p><br></p>

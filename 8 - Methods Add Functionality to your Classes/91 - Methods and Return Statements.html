@@ -1,0 +1,16 @@
+<p>You can return values from methods just like you return values from functions, with return statements.</p><p>Here we have an example. This is a <code>Calculator</code> class.</p><pre class="prettyprint linenums">&gt;&gt;&gt; class Calculator:
+
+	def add(self, a, b):
+		print(a + b)
+
+	def multiply(self, a, b):
+		return a * b</pre><p>It has two methods:</p><ul><li><p>The <code>add()</code> method prints the value, it doesn't return it.</p></li><li><p>The <code>multiply()</code> method does return the value.</p></li></ul><p>If you create an instance, you can call these methods and see the difference.</p><ul><li><p>When the <code>add()</code> method is called, the value is printed, but None is returned. This exactly what you would expect from a regular function that doesn't have a return statement.</p></li><li><p>When the <code>multiply()</code> method is called, the value is returned.</p></li></ul><pre class="prettyprint linenums">&gt;&gt;&gt; calculator = Calculator()
+&gt;&gt;&gt; calculator.add(5, 6)
+11
+&gt;&gt;&gt; print(calculator.add(5, 6))
+11
+None
+&gt;&gt;&gt; calculator.multiply(5, 6)
+30
+&gt;&gt;&gt; print(calculator.multiply(5, 6))
+30</pre><p><br></p>
